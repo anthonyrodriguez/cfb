@@ -1,2 +1,2 @@
 # cfb
-A website to track the boys' annual pick-em game
+A website to track the boys' annual pick-em game.
