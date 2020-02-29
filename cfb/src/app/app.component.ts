@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { MongoItemService } from 'src/services/mongo-item.service';
 import { Season } from 'src/models/season';
-
-const VALID_SEASONS: Season[] = [
-    { year: 2019, maxWeek: 15, postseason: true },
-    { year: 2018, maxWeek: 15, postseason: false },
-    { year: 2017, maxWeek: 10, postseason: true },
-    // { year: 2017, maxWeek: 15, postseason: true }
-];
+import { Constants } from 'src/models/constants';
 
 @Component({
     selector: 'app-root',
@@ -27,10 +20,10 @@ export class AppComponent implements OnInit{
     }
 
     ngOnInit() {
-        this.validSeasons = VALID_SEASONS;
+        this.validSeasons = Constants.VALID_SEASONS;
         this.selectedSeason = this.validSeasons[0];
         this.selectedWeekIndex = this.validSeasons[0].maxWeek - 1 ;
-        this.validWeeks = Array(this.selectedWeekIndex + 1).fill(0).map((x,i) => String(i + 1));
+        this.validWeeks = Array(this.selectedWeekIndex + 1).fill(0).map((x, i) => String(i + 1));
         if (this.selectedSeason.postseason) {
             this.selectedWeekIndex = -1;
         }
@@ -40,7 +33,7 @@ export class AppComponent implements OnInit{
     protected onYearChange(event: any) {
         this.selectedSeason = event.value as Season;
         this.selectedWeekIndex = this.selectedSeason.maxWeek - 1;
-        this.validWeeks = Array(this.selectedWeekIndex + 1).fill(0).map((x,i) => String(i + 1));
+        this.validWeeks = Array(this.selectedWeekIndex + 1).fill(0).map((x, i) => String(i + 1));
         if (this.selectedSeason.postseason) {
             this.selectedWeekIndex = -1;
         }
