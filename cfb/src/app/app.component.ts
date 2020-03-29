@@ -2,20 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { MongoItemService } from 'src/services/mongo-item.service';
 import { Season } from 'src/models/season';
 import { Constants } from 'src/models/constants';
+import { CfbApiService } from 'src/services/cfb-api.service';
+import { take } from 'rxjs/operators';
+import { Game } from 'src/models/game';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
     validSeasons: Season[];
     validWeeks: string[];
 
     selectedSeason: Season;
     selectedWeekIndex: number;
 
-    constructor(private mongoItemService: MongoItemService) {
+    gamesResponse: Game[];
+
+    constructor(private mongoItemService: MongoItemService,
+                private cfbApiService: CfbApiService) {
 
     }
 
@@ -28,6 +34,10 @@ export class AppComponent implements OnInit{
             this.selectedWeekIndex = -1;
         }
         console.log(this.validWeeks);
+        this.cfbApiService.getGames(null, this.selectedSeason.year, this.selectedWeekIndex, (this.selectedWeekIndex === -1))
+            .subscribe((games: Game[]) => {
+                this.gamesResponse = games;
+            });
     }
 
     protected onYearChange(event: any) {
