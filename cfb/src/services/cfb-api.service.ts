@@ -9,7 +9,7 @@ import { Game } from 'src/models/game';
 })
 export class CfbApiService {
 
-    baseUrl = 'https://api.collegefootballdata.com';
+    baseUrl = 'https://api.collegefootballdata.com/games';
 
     constructor(private http: HttpClient) { }
 
