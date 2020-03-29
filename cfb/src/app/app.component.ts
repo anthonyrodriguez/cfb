@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { MongoItemService } from 'src/services/mongo-item.service';
 import { Season } from 'src/models/season';
 import { Constants } from 'src/models/constants';
 import { CfbApiService } from 'src/services/cfb-api.service';
-import { take } from 'rxjs/operators';
 import { Game } from 'src/models/game';
 
 @Component({
@@ -11,7 +10,7 @@ import { Game } from 'src/models/game';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
     validSeasons: Season[];
     validWeeks: string[];
 
@@ -38,6 +37,10 @@ export class AppComponent implements OnInit {
             .subscribe((games: Game[]) => {
                 this.gamesResponse = games;
             });
+    }
+
+    ngOnChanges() {
+        console.log('entered onChanges');
     }
 
     protected onYearChange(event: any) {

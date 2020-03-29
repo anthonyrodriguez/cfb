@@ -1,24 +1,26 @@
 <h1> Angular Deployment Test</h1>
 
-<mat-label>Year</mat-label>
-<mat-select (selectionChange)="onYearChange($event)" id="year_selector" [(value)]="selectedSeason">
-    <mat-option *ngFor="let season of validSeasons" [value]="season">
+<label>Year</label>
+<select (selectionChange)="onYearChange($event)" id="year_selector" [(value)]="selectedSeason">
+    <option *ngFor="let season of validSeasons" [value]="season">
         {{season.year}}
-    </mat-option>
-</mat-select>
+    </option>
+</select>
 <br>
 <p>{{ selectedSeason.year }}</p>
 
 <br><br>
 
-<mat-label>Week</mat-label>
-<mat-select (selectionChange)="onWeekChange($event)" id="week_selector" [(value)]="selectedWeekIndex">
-    <mat-option *ngFor="let week of validWeeks; let i = index" [value]="i">
+<label>Week</label>
+<select (selectionChange)="onWeekChange($event)" id="week_selector" [(value)]="selectedWeekIndex">
+
+    <option *ngFor="let week of validWeeks; let i = index" [value]="i">
         {{week}}
-    </mat-option>
-    <mat-option *ngIf="selectedSeason.postseason" [value]="-1">
+    </option>
+    <option *ngIf="selectedSeason.postseason" [value]="-1">
         Postseason
-    </mat-option>
-</mat-select>
+    </option>
+</select>
+<p>{{ selectedWeekIndex }}</p>
 <br>
 <p>{{ gamesResponse }}</p>
