@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
             });
     }
 
-    protected onYearChange(event: any) {
+    onYearChange(event: any) {
         this.selectedWeekIndex = this.selectedSeason.maxWeek - 1;
         this.validWeeks = Array(this.selectedWeekIndex + 1).fill(0).map((x, i) => String(i + 1));
         if (this.selectedSeason.postseason) {
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
         this.updateGameList();
     }
 
-    protected onWeekChange(week: number) {
+    onWeekChange(week: number) {
         this.selectedWeekIndex = week;
         this.updateGameList();
     }
