@@ -10,7 +10,7 @@ import { Game } from 'src/models/game';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnChanges {
+export class AppComponent implements OnInit {
     validSeasons: Season[];
     validWeeks: string[];
 

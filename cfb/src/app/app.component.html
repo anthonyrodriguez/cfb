@@ -1,5 +1,3 @@
-<h1> Angular Deployment Test</h1>
-
 <div class="btn-group-vertical btn-group-toggle" ngbRadioGroup id="radioYear" [(ngModel)]="selectedSeason" (change)="onYearChange($event)">
     <label *ngFor="let season of validSeasons" ngbButtonLabel class="btn-primary">
         <input ngbButton type="radio" [value]="season">
@@ -29,27 +27,23 @@
     </div>
 </div>
 
-<!--<label>Year</label>
-<select (selectionChange)="onYearChange($event)" id="year_selector" [(value)]="selectedSeason">
-    <option *ngFor="let season of validSeasons" [value]="season">
-        {{season.year}}
-    </option>
-</select>
 <br>
-<p>{{ selectedSeason.year }}</p>
 
-<br><br>
-
-<label>Week</label>
-<select (selectionChange)="onWeekChange($event)" id="week_selector" [(value)]="selectedWeekIndex">
-
-    <option *ngFor="let week of validWeeks; let i = index" [value]="i">
-        {{week}}
-    </option>
-    <option *ngIf="selectedSeason.postseason" [value]="-1">
-        Postseason
-    </option>
-</select>
-<p>{{ selectedWeekIndex }}</p>
-<br>-->
-<p>{{ gamesResponse }}</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Away</th>
+            <th scope="col">Score</th>
+            <th scope="col">Home</th>
+            <th scope="col">Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let game of gamesResponse">
+            <td>{{ game.homeTeam }}</td>
+            <td>{{ game.homePoints }}</td>
+            <td>{{ game.awayTeam }}</td>
+            <td>{{ game.awayPoints }}</td>
+        </tr>
+    </tbody>
+</table>
