@@ -1,6 +1,35 @@
 <h1> Angular Deployment Test</h1>
 
-<label>Year</label>
+<div class="btn-group-vertical btn-group-toggle" ngbRadioGroup id="radioYear" [(ngModel)]="selectedSeason" (change)="onYearChange($event)">
+    <label *ngFor="let season of validSeasons" ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="season">
+        {{season.year}}
+    </label>
+</div>
+<pre>{{ selectedSeason.year }}</pre>
+
+<br>
+
+<div ngbDropdown class="d-inline-block">
+    <button *ngIf="selectedWeekIndex !== -1;else postseason_dropdown" class="btn btn-outline-primary" id="dropdownWeek" ngbDropdownToggle>
+        Week {{selectedWeekIndex}}
+    </button>
+    <ng-template #postseason_dropdown>
+        <button class="btn btn-outline-primary" id="dropdownWeek" ngbDropdownToggle>
+            Postseason
+        </button>
+    </ng-template>
+    <div ngbDropdownMenu aria-labelledby="dropdownWeek">
+        <button ngbDropdownItem *ngFor="let week of validWeeks" (click)="onWeekChange(week)">
+            Week {{week}}
+        </button>
+        <button ngbDropdownItem (click)="onWeekChange(-1)">
+            Postseason
+        </button>
+    </div>
+</div>
+
+<!--<label>Year</label>
 <select (selectionChange)="onYearChange($event)" id="year_selector" [(value)]="selectedSeason">
     <option *ngFor="let season of validSeasons" [value]="season">
         {{season.year}}
@@ -22,5 +51,5 @@
     </option>
 </select>
 <p>{{ selectedWeekIndex }}</p>
-<br>
+<br>-->
 <p>{{ gamesResponse }}</p>

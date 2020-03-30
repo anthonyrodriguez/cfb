@@ -32,30 +32,27 @@ export class AppComponent implements OnInit, OnChanges {
         if (this.selectedSeason.postseason) {
             this.selectedWeekIndex = -1;
         }
-        console.log(this.validWeeks);
+        this.updateGameList();
+    }
+
+    private updateGameList() {
         this.cfbApiService.getGames(null, this.selectedSeason.year, this.selectedWeekIndex, (this.selectedWeekIndex === -1))
             .subscribe((games: Game[]) => {
                 this.gamesResponse = games;
             });
     }
 
-    ngOnChanges() {
-        console.log('entered onChanges');
-    }
-
     protected onYearChange(event: any) {
-        this.selectedSeason = event.value as Season;
         this.selectedWeekIndex = this.selectedSeason.maxWeek - 1;
         this.validWeeks = Array(this.selectedWeekIndex + 1).fill(0).map((x, i) => String(i + 1));
         if (this.selectedSeason.postseason) {
             this.selectedWeekIndex = -1;
         }
-        console.log(this.validWeeks);
+        this.updateGameList();
     }
 
-    protected onWeekChange(event: any) {
-        console.log(this.validWeeks);
-        this.selectedWeekIndex = (event.value as number);
-        console.log(this.selectedWeekIndex);
+    protected onWeekChange(week: number) {
+        this.selectedWeekIndex = week;
+        this.updateGameList();
     }
 }
