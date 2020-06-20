@@ -1,16 +1,30 @@
 @import "../variables.scss";
 
-.overview-section {
+.content-container {
     margin: 50px 100px 50px 100px;
 }
 
-.breakdown-section {
-    margin: 50px 100px 50px 100px;
+.overview-container, .week-dropdown-selector, .games-list-container {
+    min-width: 800px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.overview-container {
+    margin-bottom: 20px;
 }
 
 .week-dropdown-selector {
     margin-bottom: 20px;
-    background-color: $foreground-color;
+
+    button {
+        background-color: $foreground-color;
+
+        &.btn-outline-primary {
+            color: #212529;
+        }
+    }
 }
 
 .conference-container {

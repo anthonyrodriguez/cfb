@@ -1,14 +1,14 @@
-<div class="overview-section">
-    <div class="btn-group-vertical btn-group-toggle year-stack-selector" ngbRadioGroup id="radioYear" [(ngModel)]="selectedSeason" (change)="onYearChange($event)">
-        <label *ngFor="let season of validSeasons" ngbButtonLabel class="btn-primary">
-            <input ngbButton type="radio" [value]="season">
-            {{season.year}}
-        </label>
+<div class="content-container">
+    <div class="overview-container">
+        <div class="btn-group-vertical btn-group-toggle year-stack-selector" ngbRadioGroup id="radioYear" [(ngModel)]="selectedSeason" (change)="onYearChange($event)">
+            <label *ngFor="let season of validSeasons" ngbButtonLabel class="btn-primary">
+                <input ngbButton type="radio" [value]="season">
+                {{season.year}}
+            </label>
+        </div>
     </div>
-</div>
 
-<div class="breakdown-section">
-    <div ngbDropdown class="d-inline-block week-dropdown-selector">
+    <div ngbDropdown class="week-dropdown-selector">
         <button *ngIf="selectedWeekIndex !== -1;else postseason_dropdown" class="btn btn-outline-primary" id="dropdownWeek" ngbDropdownToggle>
             Week {{selectedWeekIndex}}
         </button>
