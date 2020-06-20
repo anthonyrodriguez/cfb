@@ -1,49 +1,82 @@
-<div class="btn-group-vertical btn-group-toggle" ngbRadioGroup id="radioYear" [(ngModel)]="selectedSeason" (change)="onYearChange($event)">
-    <label *ngFor="let season of validSeasons" ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="season">
-        {{season.year}}
-    </label>
-</div>
-<pre>{{ selectedSeason.year }}</pre>
-
-<br>
-
-<div ngbDropdown class="d-inline-block">
-    <button *ngIf="selectedWeekIndex !== -1;else postseason_dropdown" class="btn btn-outline-primary" id="dropdownWeek" ngbDropdownToggle>
-        Week {{selectedWeekIndex}}
-    </button>
-    <ng-template #postseason_dropdown>
-        <button class="btn btn-outline-primary" id="dropdownWeek" ngbDropdownToggle>
-            Postseason
-        </button>
-    </ng-template>
-    <div ngbDropdownMenu aria-labelledby="dropdownWeek">
-        <button ngbDropdownItem *ngFor="let week of validWeeks" (click)="onWeekChange(week)">
-            Week {{week}}
-        </button>
-        <button ngbDropdownItem (click)="onWeekChange(-1)">
-            Postseason
-        </button>
+<div class="overview-section">
+    <div class="btn-group-vertical btn-group-toggle year-stack-selector" ngbRadioGroup id="radioYear" [(ngModel)]="selectedSeason" (change)="onYearChange($event)">
+        <label *ngFor="let season of validSeasons" ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="season">
+            {{season.year}}
+        </label>
     </div>
 </div>
 
-<br>
+<div class="breakdown-section">
+    <div ngbDropdown class="d-inline-block week-dropdown-selector">
+        <button *ngIf="selectedWeekIndex !== -1;else postseason_dropdown" class="btn btn-outline-primary" id="dropdownWeek" ngbDropdownToggle>
+            Week {{selectedWeekIndex}}
+        </button>
+        <ng-template #postseason_dropdown>
+            <button class="btn btn-outline-primary" id="dropdownWeek" ngbDropdownToggle>
+                Postseason
+            </button>
+        </ng-template>
+        <div ngbDropdownMenu aria-labelledby="dropdownWeek">
+            <button ngbDropdownItem *ngFor="let week of validWeeks" (click)="onWeekChange(week)">
+                Week {{week}}
+            </button>
+            <button ngbDropdownItem (click)="onWeekChange(-1)">
+                Postseason
+            </button>
+        </div>
+    </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Away</th>
-            <th scope="col">Score</th>
-            <th scope="col">Home</th>
-            <th scope="col">Score</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let game of gamesResponse">
-            <td>{{ game.homeTeam }}</td>
-            <td>{{ game.homePoints }}</td>
-            <td>{{ game.awayTeam }}</td>
-            <td>{{ game.awayPoints }}</td>
-        </tr>
-    </tbody>
-</table>
+    <div class="games-list-container">
+        <div class="conference-container" *ngIf="this.selectedWeekIndex === -1; else conferenceGames">
+            <conference-card 
+                [gamesList]="this.gamesResponse"
+                title="Bowl Games">
+            </conference-card>
+        </div>
+
+        <ng-template #conferenceGames>
+            <div class="conference-container">
+                <conference-card
+                    [gamesList]="this.accGames"
+                    title="ACC">
+                </conference-card>
+            </div>
+
+            <div class="conference-container">
+                <conference-card
+                    [gamesList]="this.big12Games"
+                    title="Big 12">
+                </conference-card>
+            </div>
+
+            <div class="conference-container">
+                <conference-card
+                    [gamesList]="this.bigTenGames"
+                    title="Big Ten">
+                </conference-card>
+            </div>
+
+            <div class="conference-container">
+                <conference-card
+                    [gamesList]="this.pac12Games"
+                    title="PAC-12">
+                </conference-card>
+            </div>
+
+            <div class="conference-container">
+                <conference-card
+                    [gamesList]="this.secGames"
+                    title="SEC">
+                </conference-card>
+            </div>
+
+            <div class="conference-container">
+                <conference-card
+                    [gamesList]="this.g5Games"
+                    title="G5">
+                </conference-card>
+            </div>
+        </ng-template>
+    </div>
+</div>

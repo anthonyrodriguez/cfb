@@ -6,10 +6,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         AppRoutingModule,
@@ -18,8 +19,11 @@ import { FormsModule } from '@angular/forms';
         HttpClientModule,
         NgbModule,
         FormsModule,
+        ComponentsModule,
     ],
-    providers: [],
+    providers: [
+        ComponentsModule,
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

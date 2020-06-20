@@ -18,6 +18,15 @@ export class AppComponent implements OnInit {
     selectedWeekIndex: number;
 
     gamesResponse: Game[];
+    loading: boolean;
+
+    // valid conferences
+    accGames: Game[] = [];
+    big12Games: Game[] = [];
+    bigTenGames: Game[] = [];
+    pac12Games: Game[] = [];
+    secGames: Game[] = [];
+    g5Games: Game[] = [];
 
     constructor(private mongoItemService: MongoItemService,
                 private cfbApiService: CfbApiService) {
@@ -35,11 +44,72 @@ export class AppComponent implements OnInit {
         this.updateGameList();
     }
 
+    private updateConferenceLists() {
+        this.accGames = [];
+        this.big12Games = [];
+        this.bigTenGames = [];
+        this.pac12Games = [];
+        this.secGames = [];
+        this.g5Games = [];
+        this.gamesResponse.forEach((game) => {
+            switch (game.homeConference) {
+                case 'ACC':
+                    this.accGames.push(game);
+                    break;
+                case 'Big 12':
+                    this.big12Games.push(game);
+                    break;
+                case 'Big Ten':
+                    this.bigTenGames.push(game);
+                    break;
+                case 'Pac-12':
+                    this.pac12Games.push(game);
+                    break;
+                case 'SEC':
+                    this.secGames.push(game);
+                    break;
+                default:
+                    switch (game.awayConference) {
+                        case 'ACC':
+                            this.accGames.push(game);
+                            break;
+                        case 'Big 12':
+                            this.big12Games.push(game);
+                            break;
+                        case 'Big Ten':
+                            this.bigTenGames.push(game);
+                            break;
+                        case 'Pac-12':
+                            this.pac12Games.push(game);
+                            break;
+                        case 'SEC':
+                            this.secGames.push(game);
+                            break;
+                        default:
+                            this.g5Games.push(game);
+                            break;
+                    }
+                    break;
+            }
+        });
+    }
+
     private updateGameList() {
         this.cfbApiService.getGames(null, this.selectedSeason.year, this.selectedWeekIndex, (this.selectedWeekIndex === -1))
-            .subscribe((games: Game[]) => {
-                this.gamesResponse = games;
-            });
+            .subscribe(
+                (res: Game[]) => {
+                    this.gamesResponse = res;
+                },
+                err => {
+                    this.loading = false;
+                    this.gamesResponse = [];
+                    this.updateConferenceLists();
+                },
+                () => {
+                    this.loading = false;
+                    this.updateConferenceLists();
+                }
+            );
     }
 
     onYearChange(event: any) {

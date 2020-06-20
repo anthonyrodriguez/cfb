@@ -1,0 +1,21 @@
+<div class="component-container">
+    <h2>{{ title }}</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Away</th>
+                <th scope="col">Score</th>
+                <th scope="col">Score</th>
+                <th scope="col">Home</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let game of gamesList">
+                <td>{{ game.awayTeam }}</td>
+                <td>{{ game.awayPoints }}</td>
+                <td>{{ game.homePoints }}</td>
+                <td>{{ game.homeTeam }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
