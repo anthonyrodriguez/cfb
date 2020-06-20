@@ -9,7 +9,7 @@ import { Game } from 'src/models/game';
 })
 export class CfbApiService {
 
-    baseUrl = 'https://api.collegefootballdata.com/games';
+    baseUrl = 'https://api.collegefootballdata.com/';
 
     constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class CfbApiService {
         const queryHeaders = new HttpHeaders({
             // 'Access-Control-Allow-Origin': '*'
         });
-        return this.http.get(this.baseUrl, { params: queryParams, headers: queryHeaders})
+        return this.http.get(this.baseUrl + 'lines', { params: queryParams, headers: queryHeaders})
             .pipe(
                 retry(2),
                 catchError(this.handleError),
