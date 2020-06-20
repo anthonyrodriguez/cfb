@@ -4,4 +4,19 @@
     background-color: $foreground-color;
     padding: 20px;
     border-radius: 4px;
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+
+        col {
+            &.ten {
+                width: 10%;
+            }
+
+            &.twenty {
+                width: 20%;
+            }
+        }
+    }
 }
